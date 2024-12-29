@@ -1,5 +1,3 @@
-# vectors.py
-
 import os
 from langchain_community.document_loaders import UnstructuredPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
