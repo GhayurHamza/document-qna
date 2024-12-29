@@ -1,0 +1,7 @@
+langchain
+langchain_community
+langchain_core
+langchain-huggingface
+langchain-qdrant
+langchain-ollama
+qdrant-client
