@@ -1,7 +1,7 @@
 import os
 from langchain_community.document_loaders import UnstructuredPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.embeddings import HuggingFaceBgeEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Qdrant
 
 class EmbeddingsManager:
@@ -13,14 +13,14 @@ class EmbeddingsManager:
         qdrant_url = "http://localhost:6333",
         collection_name = "vector_db",
     ):
-        
+        super().__init__()
         self.model_name = model_name
         self.device = device
         self.encode_kwargs = encode_kwargs
         self.qdrant_url = qdrant_url
         self.collection_name = collection_name
 
-        self.embeddings = HuggingFaceBgeEmbeddings(
+        self.embeddings = HuggingFaceEmbeddings(
             model_name=self.model_name,
             model_kwargs={"device": self.device},
             encode_kwargs=self.encode_kwargs,

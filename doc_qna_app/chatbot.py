@@ -1,8 +1,8 @@
-from langchain_community.embeddings import HuggingFaceBgeEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Qdrant
 from langchain_ollama import ChatOllama
 from qdrant_client import QdrantClient
-from langchain import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 from langchain.chains import RetrievalQA
 
 
@@ -17,7 +17,7 @@ class ChatbotManager:
         qdrant_url = "http://localhost:6333",
         collection_name = "vector_db",
     ):
-
+        super().__init__()
         self.model_name = model_name
         self.device = device
         self.encode_kwargs = encode_kwargs
@@ -27,7 +27,7 @@ class ChatbotManager:
         self.collection_name = collection_name
 
         # Embeddings
-        self.embeddings = HuggingFaceBgeEmbeddings(
+        self.embeddings = HuggingFaceEmbeddings(
             model_name=self.model_name,
             model_kwargs={"device": self.device},
             encode_kwargs=self.encode_kwargs,
