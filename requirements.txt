@@ -5,3 +5,4 @@ langchain-huggingface
 langchain-qdrant
 langchain-ollama
 qdrant-client
+streamlit
