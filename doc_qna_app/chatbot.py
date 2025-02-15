@@ -26,8 +26,8 @@ class ChatbotManager:
         self.qdrant_url = qdrant_url
         self.collection_name = collection_name
 
-        # Embeddings
-        self.embeddings = HuggingFaceEmbeddings(
+        # Embedding
+        self.embedding = HuggingFaceEmbeddings(
             model_name=self.model_name,
             model_kwargs={"device": self.device},
             encode_kwargs=self.encode_kwargs,
@@ -58,7 +58,7 @@ class ChatbotManager:
         # Qdrant vector store
         self.db = QdrantVectorStore(
             client=self.client,
-            embeddings=self.embeddings,
+            embedding=self.embedding,
             collection_name=self.collection_name
         )
 

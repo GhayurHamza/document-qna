@@ -20,7 +20,7 @@ class EmbeddingsManager:
         self.qdrant_url = qdrant_url
         self.collection_name = collection_name
 
-        self.embeddings = HuggingFaceEmbeddings(
+        self.embedding = HuggingFaceEmbeddings(
             model_name=self.model_name,
             model_kwargs={"device": self.device},
             encode_kwargs=self.encode_kwargs,
@@ -28,7 +28,7 @@ class EmbeddingsManager:
 
     def create_embeddings(self, pdf_path):
         """
-        Processes the PDF, creates embeddings, and stores them in Qdrant.
+        Processes the PDF, creates embedding, and stores them in Qdrant.
 
         Args:
             pdf_path (str): The file path to the PDF document.
@@ -52,11 +52,11 @@ class EmbeddingsManager:
         if not splits:
             raise ValueError("No text chunks were created from the documents.")
 
-        # Create and store embeddings in Qdrant
+        # Create and store embedding in Qdrant
         try:
             QdrantVectorStore.from_documents(
                 splits,
-                self.embeddings,
+                self.embedding,
                 url=self.qdrant_url,
                 prefer_grpc=False,
                 collection_name=self.collection_name,
