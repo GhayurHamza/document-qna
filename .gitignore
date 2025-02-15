@@ -1,4 +1,9 @@
 .env
+
+raft_state.json
+
 rag_env/
 __pycache__/
 tmp_folder/
+aliases/
+collections/
