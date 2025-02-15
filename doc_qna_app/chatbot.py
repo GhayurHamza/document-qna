@@ -1,5 +1,5 @@
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_community.vectorstores import Qdrant
+from langchain_qdrant import QdrantVectorStore
 from langchain_ollama import ChatOllama
 from qdrant_client import QdrantClient
 from langchain_core.prompts import PromptTemplate
@@ -56,7 +56,7 @@ class ChatbotManager:
         )
 
         # Qdrant vector store
-        self.db = Qdrant(
+        self.db = QdrantVectorStore(
             client=self.client,
             embeddings=self.embeddings,
             collection_name=self.collection_name
@@ -95,7 +95,7 @@ class ChatbotManager:
             str: The chatbot's response.
         """
         try:
-            response = self.qa.run(query)
+            response = self.qa.invoke(query)
             return response
         except Exception as e:
             return "⚠️ Sorry, I couldn't process your request at the moment."

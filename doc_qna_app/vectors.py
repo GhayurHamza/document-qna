@@ -1,8 +1,8 @@
 import os
-from langchain_community.document_loaders import UnstructuredPDFLoader
+from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_community.vectorstores import Qdrant
+from langchain_qdrant import QdrantVectorStore
 
 class EmbeddingsManager:
     def __init__(
@@ -40,7 +40,7 @@ class EmbeddingsManager:
             raise FileNotFoundError(f"The file {pdf_path} does not exist.")
 
         # Load and preprocess the document
-        loader = UnstructuredPDFLoader(pdf_path)
+        loader = PyPDFLoader(pdf_path)
         docs = loader.load()
         if not docs:
             raise ValueError("No documents were loaded from the PDF.")
@@ -54,7 +54,7 @@ class EmbeddingsManager:
 
         # Create and store embeddings in Qdrant
         try:
-            Qdrant.from_documents(
+            QdrantVectorStore.from_documents(
                 splits,
                 self.embeddings,
                 url=self.qdrant_url,
